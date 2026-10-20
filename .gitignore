@@ -1,0 +1,11 @@
+node_modules/
+.env
+.env.*
+report*.json
+report*.html
+comparison*.json
+comparison*.html
+replay*.json
+replay*.html
+demo.json
+demo.html

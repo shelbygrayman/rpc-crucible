@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>RPC Crucible · Differential report</title><style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{background:#10141b;color:#e4eaf4;font:16px/1.6 system-ui;margin:0}main{max-width:1100px;margin:auto;padding:48px 24px}h1{font-size:48px;letter-spacing:-2px;margin:0}h2{font-size:23px}.eyebrow{color:#a5c6ff;letter-spacing:3px;font-size:12px}.muted,small{color:#a8b5c7}small{display:block}.stats{display:flex;gap:14px;flex-wrap:wrap;margin:32px 0}.stat{padding:16px 24px;background:#1b2330;border:1px solid #344257;border-radius:12px}.stat strong{font-size:28px;display:block}.note{padding:18px;border-left:3px solid #e1b966;background:#211f1a}table{width:100%;border-collapse:collapse}td,th{padding:18px 12px;text-align:left;border-bottom:1px solid #344257;vertical-align:top}pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:0;font:12px/1.6 monospace}.badge{font-size:12px;border-radius:5px;padding:4px 8px;background:#283448}.match{color:#94e9bc}.divergent,.invalid{color:#ffb89f}.matching-error{color:#e1c77c}footer{margin-top:36px;font-size:13px;color:#a8b5c7}@media(max-width:650px){main{padding:24px 12px}h1{font-size:36px}td,th{padding:10px 6px}.badge{padding:2px}table{font-size:12px}}
+</style></head><body><main><p class="eyebrow">REPRODUCIBLE EVM RPC TESTING</p><h1>RPC Crucible</h1><p class="muted">Differential evidence for a pinned block. No consensus or safety verdict.</p>
+<p>Synthetic fault-injection demo — not live provider data</p><div class="stats"><div class="stat">Block<strong>0x1234</strong></div><div class="stat">match<strong>2</strong></div><div class="stat">divergent<strong>1</strong></div><div class="stat">invalid<strong>1</strong></div><div class="stat">matching-error<strong>1</strong></div></div>
+<p class="note">Anchor verification: ok. Matching errors are unavailable results, not successful reads. Differences identify disagreement, not which provider is correct.</p>
+<h2>Case results</h2><table><thead><tr><th>Case</th><th>Outcome</th><th>Evidence</th></tr></thead><tbody><tr><td>chain<small>eth_chainId</small></td><td><span class="badge match">match</span></td><td><pre>{
+  &quot;left&quot;: [],
+  &quot;right&quot;: []
+}</pre></td></tr><tr><td>balance<small>eth_getBalance</small></td><td><span class="badge divergent">divergent</span></td><td><pre>[
+  {
+    &quot;path&quot;: &quot;/result&quot;,
+    &quot;left&quot;: &quot;0x10&quot;,
+    &quot;right&quot;: &quot;0x11&quot;
+  }
+]</pre></td></tr><tr><td>nonce<small>eth_getTransactionCount</small></td><td><span class="badge invalid">invalid</span></td><td><pre>{
+  &quot;left&quot;: [],
+  &quot;right&quot;: [
+    &quot;Result must be a minimally encoded hex quantity&quot;
+  ]
+}</pre></td></tr><tr><td>code<small>eth_getCode</small></td><td><span class="badge match">match</span></td><td><pre>{
+  &quot;left&quot;: [],
+  &quot;right&quot;: []
+}</pre></td></tr><tr><td>storage<small>eth_getStorageAt</small></td><td><span class="badge matching-error">matching-error</span></td><td><pre>{
+  &quot;left&quot;: [],
+  &quot;right&quot;: []
+}</pre></td></tr></tbody></table>
+<footer>Schema coverage is intentionally partial. Compare the JSON evidence to reproduce a run. This HTML contains no scripts or external assets. Endpoint configuration is omitted; review provider-supplied evidence before sharing.</footer></main></body></html>

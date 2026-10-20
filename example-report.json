@@ -1,0 +1,346 @@
+{
+  "version": 1,
+  "suite": {
+    "version": 1,
+    "block": "0x1234",
+    "label": "Synthetic fault-injection demo — not live provider data",
+    "cases": [
+      {
+        "name": "chain",
+        "method": "eth_chainId",
+        "params": []
+      },
+      {
+        "name": "balance",
+        "method": "eth_getBalance",
+        "params": [
+          "0x1111111111111111111111111111111111111111",
+          "0x1234"
+        ]
+      },
+      {
+        "name": "nonce",
+        "method": "eth_getTransactionCount",
+        "params": [
+          "0x1111111111111111111111111111111111111111",
+          "0x1234"
+        ]
+      },
+      {
+        "name": "code",
+        "method": "eth_getCode",
+        "params": [
+          "0x1111111111111111111111111111111111111111",
+          "0x1234"
+        ]
+      },
+      {
+        "name": "storage",
+        "method": "eth_getStorageAt",
+        "params": [
+          "0x1111111111111111111111111111111111111111",
+          "0x0",
+          "0x1234"
+        ]
+      }
+    ]
+  },
+  "preflight": "ok",
+  "cases": [
+    {
+      "name": "chain",
+      "method": "eth_chainId",
+      "status": "match",
+      "validation": {
+        "left": [],
+        "right": []
+      },
+      "changes": []
+    },
+    {
+      "name": "balance",
+      "method": "eth_getBalance",
+      "status": "divergent",
+      "validation": {
+        "left": [],
+        "right": []
+      },
+      "changes": [
+        {
+          "path": "/result",
+          "left": "0x10",
+          "right": "0x11"
+        }
+      ]
+    },
+    {
+      "name": "nonce",
+      "method": "eth_getTransactionCount",
+      "status": "invalid",
+      "validation": {
+        "left": [],
+        "right": [
+          "Result must be a minimally encoded hex quantity"
+        ]
+      },
+      "changes": []
+    },
+    {
+      "name": "code",
+      "method": "eth_getCode",
+      "status": "match",
+      "validation": {
+        "left": [],
+        "right": []
+      },
+      "changes": []
+    },
+    {
+      "name": "storage",
+      "method": "eth_getStorageAt",
+      "status": "matching-error",
+      "validation": {
+        "left": [],
+        "right": []
+      },
+      "changes": []
+    }
+  ],
+  "summary": {
+    "match": 2,
+    "divergent": 1,
+    "invalid": 1,
+    "matching-error": 1
+  },
+  "evidence": [
+    {
+      "name": "_chain",
+      "request": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "method": "eth_chainId",
+        "params": []
+      },
+      "left": {
+        "response": {
+          "jsonrpc": "2.0",
+          "id": 1,
+          "result": "0x1"
+        }
+      },
+      "right": {
+        "response": {
+          "jsonrpc": "2.0",
+          "id": 1,
+          "result": "0x1"
+        }
+      }
+    },
+    {
+      "name": "_anchor",
+      "request": {
+        "jsonrpc": "2.0",
+        "id": 2,
+        "method": "eth_getBlockByNumber",
+        "params": [
+          "0x1234",
+          false
+        ]
+      },
+      "left": {
+        "response": {
+          "jsonrpc": "2.0",
+          "id": 2,
+          "result": {
+            "number": "0x1234",
+            "hash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "parentHash": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "transactions": []
+          }
+        }
+      },
+      "right": {
+        "response": {
+          "jsonrpc": "2.0",
+          "id": 2,
+          "result": {
+            "number": "0x1234",
+            "hash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "parentHash": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "transactions": []
+          }
+        }
+      }
+    },
+    {
+      "name": "chain",
+      "request": {
+        "jsonrpc": "2.0",
+        "id": 3,
+        "method": "eth_chainId",
+        "params": []
+      },
+      "left": {
+        "response": {
+          "jsonrpc": "2.0",
+          "id": 3,
+          "result": "0x1"
+        }
+      },
+      "right": {
+        "response": {
+          "jsonrpc": "2.0",
+          "id": 3,
+          "result": "0x1"
+        }
+      }
+    },
+    {
+      "name": "balance",
+      "request": {
+        "jsonrpc": "2.0",
+        "id": 4,
+        "method": "eth_getBalance",
+        "params": [
+          "0x1111111111111111111111111111111111111111",
+          "0x1234"
+        ]
+      },
+      "left": {
+        "response": {
+          "jsonrpc": "2.0",
+          "id": 4,
+          "result": "0x10"
+        }
+      },
+      "right": {
+        "response": {
+          "jsonrpc": "2.0",
+          "id": 4,
+          "result": "0x11"
+        }
+      }
+    },
+    {
+      "name": "nonce",
+      "request": {
+        "jsonrpc": "2.0",
+        "id": 5,
+        "method": "eth_getTransactionCount",
+        "params": [
+          "0x1111111111111111111111111111111111111111",
+          "0x1234"
+        ]
+      },
+      "left": {
+        "response": {
+          "jsonrpc": "2.0",
+          "id": 5,
+          "result": "0x1"
+        }
+      },
+      "right": {
+        "response": {
+          "jsonrpc": "2.0",
+          "id": 5,
+          "result": "0x01"
+        }
+      }
+    },
+    {
+      "name": "code",
+      "request": {
+        "jsonrpc": "2.0",
+        "id": 6,
+        "method": "eth_getCode",
+        "params": [
+          "0x1111111111111111111111111111111111111111",
+          "0x1234"
+        ]
+      },
+      "left": {
+        "response": {
+          "jsonrpc": "2.0",
+          "id": 6,
+          "result": "0x60ab"
+        }
+      },
+      "right": {
+        "response": {
+          "jsonrpc": "2.0",
+          "id": 6,
+          "result": "0x60AB"
+        }
+      }
+    },
+    {
+      "name": "storage",
+      "request": {
+        "jsonrpc": "2.0",
+        "id": 7,
+        "method": "eth_getStorageAt",
+        "params": [
+          "0x1111111111111111111111111111111111111111",
+          "0x0",
+          "0x1234"
+        ]
+      },
+      "left": {
+        "response": {
+          "jsonrpc": "2.0",
+          "id": 7,
+          "error": {
+            "code": -32000,
+            "message": "Synthetic pruned state"
+          }
+        }
+      },
+      "right": {
+        "response": {
+          "jsonrpc": "2.0",
+          "id": 7,
+          "error": {
+            "code": -32000,
+            "message": "Synthetic state unavailable"
+          }
+        }
+      }
+    },
+    {
+      "name": "_anchor_after",
+      "request": {
+        "jsonrpc": "2.0",
+        "id": 8,
+        "method": "eth_getBlockByNumber",
+        "params": [
+          "0x1234",
+          false
+        ]
+      },
+      "left": {
+        "response": {
+          "jsonrpc": "2.0",
+          "id": 8,
+          "result": {
+            "number": "0x1234",
+            "hash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "parentHash": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "transactions": []
+          }
+        }
+      },
+      "right": {
+        "response": {
+          "jsonrpc": "2.0",
+          "id": 8,
+          "result": {
+            "number": "0x1234",
+            "hash": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "parentHash": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "transactions": []
+          }
+        }
+      }
+    }
+  ]
+}

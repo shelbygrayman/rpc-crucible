@@ -1,0 +1,14 @@
+{
+  "name": "rpc-crucible",
+  "version": "0.1.0",
+  "description": "Reproducible differential testing for a bounded subset of Ethereum JSON-RPC.",
+  "type": "module",
+  "private": true,
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "test": "node --test crucible.test.mjs",
+    "demo": "node cli.mjs demo",
+    "check": "node --check core.mjs && node --check transport.mjs && node --check cli.mjs"
+  },
+  "license": "MIT"
+}
