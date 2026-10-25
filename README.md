@@ -1,5 +1,7 @@
 # RPC Crucible
 
+[Validation and benchmarks](BENCHMARKS.md) · [Changelog](CHANGELOG.md)
+
 Two RPC providers can answer the same request differently. Before treating that as a bug, check that they are answering for the same chain and block.
 
 RPC Crucible is a small developer harness for that investigation. It compares a bounded set of Ethereum JSON-RPC reads, keeps the evidence, and replays the run without network access.
